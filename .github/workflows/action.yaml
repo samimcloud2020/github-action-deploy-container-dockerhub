@@ -18,6 +18,7 @@ jobs:
     - name: Prepare
       run: |
         TAG=$(echo $GITHUB_SHA | head -c7)
+        echo ${TAG}
          
   
     - name: docker login
@@ -27,8 +28,8 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag samimbsnl/githubaction:${GITHUB_SHA}
+      run: docker build . --file Dockerfile --tag samimbsnl/githubaction:${GITHUB_SHA}-${TAG}
       
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/githubaction:${GITHUB_SHA}
+      run: docker push ${{secrets.DOCKER_USER}}/githubaction:${GITHUB_SHA}-${TAG}
 
