@@ -24,4 +24,5 @@ jobs:
       run: docker build . --file Dockerfile --tag samimbsnl/githubaction:$(date +%s)
       
     - name: Docker Push
-      run: docker push samimbsnl/githubaction
+      run: docker push samimbsnl/githubaction:$(date +%s)
+
