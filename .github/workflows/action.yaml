@@ -16,10 +16,9 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v3
     - name: Prepare
-        id: prep
         run: |
           TAG=$(echo $GITHUB_SHA | head -c7)
-          echo ::set-output name=tag::${TAG}
+          echo ${TAG}
   
     - name: docker login
       env:
@@ -28,8 +27,8 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag samimbsnl/githubaction:$TAG
+      run: docker build . --file Dockerfile --tag samimbsnl/githubaction:${TAG}
       
     - name: Docker Push
-      run: docker push ${{secrets.DOCKER_USER}}/githubaction:$TAG
+      run: docker push ${{secrets.DOCKER_USER}}/githubaction:${TAG}
 
